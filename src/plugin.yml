@@ -1,0 +1,10 @@
+name: Quake
+author: Geekpower14
+main: com.Geekpower14.Quake.Quake
+version: 3.0.0
+depend: [WorldEdit,Vault]
+commands:
+  quake:
+    description: Quake command
+    usage: /quake 
+    aliases: [q]
