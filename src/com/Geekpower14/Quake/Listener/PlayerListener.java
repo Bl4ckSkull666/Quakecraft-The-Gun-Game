@@ -301,8 +301,7 @@ public class PlayerListener implements Listener {
                 @Override
                 public void run() {
                     try {
-                         if(Quake.getPlugin().getConfig().getInt("mc-version", 1002) >= 1000 && Quake.getPlugin().getConfig().getInt("mc-version", 1002) <= 1002)
-                            ((CraftPlayer)player).getHandle().playerConnection.a(new PacketPlayInClientCommand(EnumClientCommand.PERFORM_RESPAWN));
+                         ((CraftPlayer)player).getHandle().playerConnection.a(new PacketPlayInClientCommand(EnumClientCommand.PERFORM_RESPAWN));
                     } catch (SecurityException | IllegalArgumentException t) {
                         t.printStackTrace();
                     }
