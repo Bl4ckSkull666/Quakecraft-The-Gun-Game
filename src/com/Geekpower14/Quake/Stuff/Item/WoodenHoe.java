@@ -36,7 +36,7 @@ public class WoodenHoe extends ItemBasic implements Listener {
 
     @Override
     public ItemStack getItem() {
-        ItemStack item = defaultItem(Material.WOOD_HOE, _Time);
+        ItemStack item = defaultItem(Material.WOODEN_HOE, _Time);
         return item;
     }
 

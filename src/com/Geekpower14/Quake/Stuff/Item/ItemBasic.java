@@ -4,16 +4,15 @@ import com.Geekpower14.Quake.Arena.APlayer;
 import com.Geekpower14.Quake.Arena.Arena;
 import com.Geekpower14.Quake.Quake;
 import com.Geekpower14.Quake.Utils.FireworkEffectPlayer;
-import com.Geekpower14.Quake.Utils.ParticleEffects;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.FireworkEffect;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -103,12 +102,6 @@ public abstract class ItemBasic implements Listener {
         player.getWorld().playSound(player.getLocation(), Sound.ENTITY_GENERIC_EXPLODE, 0.1f, 1.3f);
         player.getWorld().playSound(player.getLocation(), Sound.ENTITY_GENERIC_EXPLODE, 0.1f, 1.2f);
 
-        /*player.getWorld().playSound(player.getLocation(), org.bukkit.Sound.EXPLODE, 0.1f, 2.0f);
-        player.getWorld().playSound(player.getLocation(), Sound.EXPLODE, 0.1f, 1.5f);
-        player.getWorld().playSound(player.getLocation(), Sound.EXPLODE, 0.1f, 1.4f);
-        player.getWorld().playSound(player.getLocation(), Sound.EXPLODE, 0.1f, 1.3f);
-        player.getWorld().playSound(player.getLocation(), Sound.EXPLODE, 0.1f, 1.2f);*/
-        
         if (compte == 2) {
             arena.broadcast(_plugin._trad.get("Game.Arena.Kill.Double"));
         } else if (compte == 3) {
@@ -148,14 +141,7 @@ public abstract class ItemBasic implements Listener {
             double lx = loc.getX();
             double ly = loc.getY();
             double lz = loc.getZ();
-            for(APlayer apa: arena._players.values()) {
-                try {
-                    ParticleEffects.FIREWORKS_SPARK.sendToPlayer(apa.getPlayer(), loc, 0.1f, 0.1f, 0.1f, 0.05f, 2);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            
+            loc.getWorld().spawnParticle(Particle.FIREWORKS_SPARK, loc, 0, 0.1D, 0.1D, 0.1D, 0.05D);
             for(Player possibleTarget : targets) {
                 if(possibleTarget.getUniqueId() == player.getUniqueId())
                     continue;

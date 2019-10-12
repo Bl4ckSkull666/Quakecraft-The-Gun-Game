@@ -352,7 +352,7 @@ public class SArena extends Arena {
                 _compteur++;
             }
         }, 5, 5);
-        Bukkit.getScheduler().scheduleSyncDelayedTask((Plugin)_plugin, new Runnable(){
+        Bukkit.getScheduler().scheduleSyncDelayedTask((Plugin)_plugin, new Runnable() {
 
             @Override
             public void run() {

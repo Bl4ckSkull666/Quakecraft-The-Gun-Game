@@ -11,7 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class BookSerialization {
-    protected BookSerialization() {
+    /*protected BookSerialization() {
     }
 
     public static BookMeta getBookMeta(String json) {
@@ -167,6 +167,6 @@ public class BookSerialization {
             e.printStackTrace();
             return null;
         }
-    }
+    }*/
 }
 

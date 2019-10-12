@@ -55,7 +55,7 @@ public class MyCommandExecutor implements CommandExecutor {
         if(cmd.getName().equalsIgnoreCase("quake")) {
             if(args == null || args.length < 1) {
                 player.sendMessage(ChatColor.YELLOW + "Plugin By Geekpower14");
-                player.sendMessage(ChatColor.YELLOW + "Reloaded by Bl4ckSkull666 ( wwww.AMC-Server.de )");
+                player.sendMessage(ChatColor.YELLOW + "Reloaded by Bl4ckSkull666 ( wwww.Survival-Piraten.de )");
                 player.sendMessage(ChatColor.YELLOW + "Version: " + _plugin.getDescription().getVersion());
                 return true;
             }

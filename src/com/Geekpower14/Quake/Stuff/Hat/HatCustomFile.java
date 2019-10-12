@@ -3,8 +3,10 @@ package com.Geekpower14.Quake.Stuff.Hat;
 import com.Geekpower14.Quake.Trans.Translate;
 import java.io.File;
 import java.util.ArrayList;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.SkullType;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -31,9 +33,11 @@ public class HatCustomFile extends HatBasic implements Listener {
     }
 
     public static ItemStack Skull(String skullOwner) {
-        ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short)SkullType.PLAYER.ordinal());
+        ItemStack skull = new ItemStack(Material.PLAYER_HEAD, 1);
         SkullMeta skullMeta = (SkullMeta)skull.getItemMeta();
-        skullMeta.setOwner(skullOwner);
+        OfflinePlayer op = Bukkit.getOfflinePlayer(skullOwner);
+        if(op != null)
+            skullMeta.setOwningPlayer(op);
         skull.setItemMeta((ItemMeta)skullMeta);
         return skull;
     }

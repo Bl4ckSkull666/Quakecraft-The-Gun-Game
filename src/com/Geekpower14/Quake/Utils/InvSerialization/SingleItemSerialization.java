@@ -17,7 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class SingleItemSerialization {
-    protected SingleItemSerialization() {
+    /*protected SingleItemSerialization() {
     }
 
     public static JSONObject serializeItemInInventory(ItemStack items, int index) {
@@ -240,6 +240,6 @@ public class SingleItemSerialization {
             e.printStackTrace();
             return null;
         }
-    }
+    }*/
 }
 

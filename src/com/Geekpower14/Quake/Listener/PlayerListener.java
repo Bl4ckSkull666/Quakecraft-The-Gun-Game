@@ -5,34 +5,15 @@ import com.Geekpower14.Quake.Arena.Arena;
 import com.Geekpower14.Quake.Quake;
 import com.Geekpower14.Quake.Utils.FireworkEffectPlayer;
 import com.Geekpower14.Quake.Utils.ScoreB;
+import com.Geekpower14.Quake.Versions.SelectVersion;
 import java.io.File;
-
-//1.8.8
-//import net.minecraft.server.v1_8_R3.PacketPlayInClientCommand;
-//import net.minecraft.server.v1_8_R3.PacketPlayInClientCommand.EnumClientCommand;
-//1.9.2
-//import net.minecraft.server.v1_9_R1.PacketPlayInClientCommand;
-//import net.minecraft.server.v1_9_R1.PacketPlayInClientCommand.EnumClientCommand;
-//1.9.4
-//import net.minecraft.server.v1_9_R2.PacketPlayInClientCommand;
-//import net.minecraft.server.v1_9_R2.PacketPlayInClientCommand.EnumClientCommand;
-//1.10
-import net.minecraft.server.v1_10_R1.PacketPlayInClientCommand;
-import net.minecraft.server.v1_10_R1.PacketPlayInClientCommand.EnumClientCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
-//1.8.8
-//import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
-//1.9.2
-//import org.bukkit.craftbukkit.v1_9_R1.entity.CraftPlayer;
-//1.9.4
-//import org.bukkit.craftbukkit.v1_9_R2.entity.CraftPlayer;
-//1.10
-import org.bukkit.craftbukkit.v1_10_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -67,11 +48,11 @@ public class PlayerListener implements Listener {
     public void onPlayerInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         Action action = event.getAction();
-        ItemStack hand = player.getItemInHand();
+        ItemStack hand = player.getInventory().getItemInMainHand();
         Arena arena = _plugin._am.getArenabyPlayer(player);
-        if (arena == null) {
-            Block block;
-            if ((action == Action.LEFT_CLICK_BLOCK || action == Action.RIGHT_CLICK_BLOCK) && _plugin._lobby.isinLobby(event.getClickedBlock().getLocation()) && (block = event.getClickedBlock()).getState() instanceof Sign) {
+        if(arena == null) {
+            Block block = event.getClickedBlock();
+            if ((action == Action.LEFT_CLICK_BLOCK || action == Action.RIGHT_CLICK_BLOCK) && _plugin._lobby.isinLobby(event.getClickedBlock().getLocation()) && block.getState() instanceof Sign) {
                 Sign sign = (Sign)block.getState();
                 if (sign.getLine(1).equals("")) {
                     return;
@@ -91,9 +72,23 @@ public class PlayerListener implements Listener {
             }
             return;
         }
-        APlayer ap = arena.getAPlayer(player);
-        if (hand != null && hand.getType() == Material.WOOD_DOOR) {
-            arena.leaveArena(player);
+        
+        if(hand.getType() == Material.DARK_OAK_DOOR && hand.getItemMeta().hasDisplayName() && hand.getItemMeta().getDisplayName().toLowerCase().contains("exit")) {
+            if(arena != null) {
+                arena.leaveArena(player);
+            } else {
+                if (_plugin._lobby._lobbyspawn != null) {
+                    player.teleport(_plugin._lobby._lobbyspawn);
+                } else {
+                    if(player.getBedLocation() != null)
+                        player.teleport(player.getBedLocation());
+                    else if(player.getBedSpawnLocation() != null)
+                        player.teleport(player.getBedSpawnLocation());
+                    else
+                        player.teleport(player.getWorld().getSpawnLocation());
+                }
+            }
+            event.setCancelled(true);
         }
     }
 
@@ -301,8 +296,10 @@ public class PlayerListener implements Listener {
                 @Override
                 public void run() {
                     try {
-                         ((CraftPlayer)player).getHandle().playerConnection.a(new PacketPlayInClientCommand(EnumClientCommand.PERFORM_RESPAWN));
-                    } catch (SecurityException | IllegalArgumentException t) {
+                        SelectVersion.Respawn(player);
+                        //PacketPlayInClientCommand ppicc = new PacketPlayInClientCommand(EnumClientCommand.PERFORM_RESPAWN);
+                        //((CraftPlayer)player).getHandle().playerConnection.a(ppicc);
+                    } catch (Exception t) {
                         t.printStackTrace();
                     }
                 }

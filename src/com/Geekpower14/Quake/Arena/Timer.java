@@ -1,6 +1,8 @@
 package com.Geekpower14.Quake.Arena;
 
 import com.Geekpower14.Quake.Quake;
+import com.Geekpower14.Quake.Versions.GetSounds;
+import com.Geekpower14.Quake.Versions.SelectVersion;
 import org.bukkit.Sound;
 
 public class Timer implements Runnable {
@@ -15,6 +17,8 @@ public class Timer implements Runnable {
 
     @Override
     public void run() {
+        Sound _sound = GetSounds.GetNotePling();
+        
         if(_plugin.getServer().getOnlinePlayers().isEmpty())
             return;
 
@@ -28,18 +32,17 @@ public class Timer implements Runnable {
 
         if(_arena._etat <= 5 && _arena._etat >= 1) {
             _arena.broadcast(_plugin._trad.get("Game.Arena.Message.RemainTime").replace("[TIME]", "" + _arena._etat));
-            _arena.playsound(Sound.BLOCK_NOTE_PLING, 0.6f, 50.0f);
-            //_arena.playsound(Sound.NOTE_PLING, 0.6f, 50.0f);
+            if(_sound != null)
+                _arena.playsound(_sound, 0.6f, 50.0f);
+
         }
         
         if (_arena._etat == 0) {
-            _arena.playsound(Sound.BLOCK_NOTE_PLING, 9.0f, 1.0f);
-            _arena.playsound(Sound.BLOCK_NOTE_PLING, 9.0f, 5.0f);
-            _arena.playsound(Sound.BLOCK_NOTE_PLING, 9.0f, 10.0f);
-
-            /*_arena.playsound(Sound.NOTE_PLING, 9.0f, 1.0f);
-            _arena.playsound(Sound.NOTE_PLING, 9.0f, 5.0f);
-            _arena.playsound(Sound.NOTE_PLING, 9.0f, 10.0f);*/
+            if(_sound != null) {
+                _arena.playsound(_sound, 9.0f, 1.0f);
+                _arena.playsound(_sound, 9.0f, 5.0f);
+                _arena.playsound(_sound, 9.0f, 10.0f);
+            }
 
             _arena.broadcast(_plugin._trad.get("Game.Arena.Message.Start"));
             _arena.start();

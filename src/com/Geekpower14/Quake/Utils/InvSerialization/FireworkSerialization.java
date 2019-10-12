@@ -9,7 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class FireworkSerialization {
-    protected FireworkSerialization() {
+    /*protected FireworkSerialization() {
     }
 
     public static FireworkMeta getFireworkMeta(String json) {
@@ -62,6 +62,6 @@ public class FireworkSerialization {
 
     public static String serializeFireworkMetaAsString(FireworkMeta meta, boolean pretty, int indentFactor) {
         return Serializer.toString(FireworkSerialization.serializeFireworkMeta(meta), pretty, indentFactor);
-    }
+    }*/
 }
 

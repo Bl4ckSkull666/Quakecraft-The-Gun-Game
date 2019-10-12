@@ -20,7 +20,7 @@ public class GoldHoe extends ItemBasic implements Listener {
 
     @Override
     public ItemStack getItem() {
-        ItemStack item = defaultItem(Material.GOLD_HOE, _Time);
+        ItemStack item = defaultItem(Material.GOLDEN_HOE, _Time);
         return item;
     }
 

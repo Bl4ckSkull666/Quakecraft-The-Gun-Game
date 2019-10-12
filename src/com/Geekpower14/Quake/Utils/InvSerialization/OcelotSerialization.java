@@ -7,7 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class OcelotSerialization {
-    protected OcelotSerialization() {
+    /*protected OcelotSerialization() {
     }
 
     public static JSONObject serializeOcelot(Ocelot ocelot) {
@@ -71,6 +71,6 @@ public class OcelotSerialization {
 
     public static boolean shouldSerialize(String key) {
         return SerializationConfig.getShouldSerialize("ocelot." + key);
-    }
+    }*/
 }
 

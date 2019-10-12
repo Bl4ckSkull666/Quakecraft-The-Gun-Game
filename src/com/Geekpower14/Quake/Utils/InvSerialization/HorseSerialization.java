@@ -8,7 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class HorseSerialization {
-    protected HorseSerialization() {
+    /*protected HorseSerialization() {
     }
 
     public static JSONObject serializeHorse(Horse horse) {
@@ -96,6 +96,6 @@ public class HorseSerialization {
 
     public static boolean shouldSerialize(String key) {
         return SerializationConfig.getShouldSerialize("horse." + key);
-    }
+    }*/
 }
 

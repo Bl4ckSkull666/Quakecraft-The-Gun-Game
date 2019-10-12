@@ -7,6 +7,7 @@ import com.Geekpower14.Quake.Stuff.Armor.ArmorBasic;
 import com.Geekpower14.Quake.Stuff.Hat.HatBasic;
 import com.Geekpower14.Quake.Stuff.Item.ItemBasic;
 import com.Geekpower14.Quake.Utils.IconMenu;
+import com.Geekpower14.Quake.Versions.GetMaterials;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +29,17 @@ public class ShopManager {
     }
 
     public void getMainShop(Player p) {
+        Material DiaHoeMat = GetMaterials.GetDiamandHoe();
+        Material LeaCheMat = GetMaterials.GetLeatherChestplate();
+        Material JaOLanMat = GetMaterials.GetJackOLantern();
+        Material EmeralMat = GetMaterials.GetEmerald();
+        Material BedMat = GetMaterials.GetBed();
+        
+        if(DiaHoeMat == null || LeaCheMat == null || JaOLanMat == null || EmeralMat == null || BedMat == null) {
+            p.sendMessage("It's happend an error on get Materials on getMainShop. Please Inform the Team or Bl4ckSkull666. Thank you ( https://www.Survival-Piraten.de )");
+            return;
+        }
+        
         _plugin._imm.create(p, "Quake Manager", 54, new IconMenu.OptionClickEventHandler() {
 
             @Override
@@ -38,14 +50,20 @@ public class ShopManager {
                 Quake.getPlugin()._shop.Main_Manager(event.getPlayer(), event.getName());
             }
         });
-        _plugin._imm.setOption(p, 0, new ItemStack(Material.DIAMOND_HOE, 1), _plugin._trad.get("Shop.ManagerHoe"), "Hoe_manager", new String[]{_plugin._trad.get("Shop.SelectHoe")});
-        _plugin._imm.setOption(p, 3, new ItemStack(Material.LEATHER_CHESTPLATE, 1), _plugin._trad.get("Shop.ManagerArmor"), "Armor_manager", new String[]{_plugin._trad.get("Shop.SelectArmor")});
-        _plugin._imm.setOption(p, 5, new ItemStack(Material.JACK_O_LANTERN, 1), _plugin._trad.get("Shop.ManagerHat"), "Hat_manager", new String[]{_plugin._trad.get("Shop.SelectHat")});
-        _plugin._imm.setOption(p, 8, new ItemStack(Material.EMERALD, 1), _plugin._trad.get("Shop.Shop"), "Shop", new String[]{_plugin._trad.get("Shop.BuyNewStuff")});
-        _plugin._imm.setOption(p, 49, new ItemStack(Material.BED, 1), _plugin._trad.get("Shop.Exit"), "Exit", new String[]{_plugin._trad.get("Shop.ExitDesc")});
+        _plugin._imm.setOption(p, 0, new ItemStack(DiaHoeMat, 1), _plugin._trad.get("Shop.ManagerHoe"), "Hoe_manager", new String[]{_plugin._trad.get("Shop.SelectHoe")});
+        _plugin._imm.setOption(p, 3, new ItemStack(LeaCheMat, 1), _plugin._trad.get("Shop.ManagerArmor"), "Armor_manager", new String[]{_plugin._trad.get("Shop.SelectArmor")});
+        _plugin._imm.setOption(p, 5, new ItemStack(JaOLanMat, 1), _plugin._trad.get("Shop.ManagerHat"), "Hat_manager", new String[]{_plugin._trad.get("Shop.SelectHat")});
+        _plugin._imm.setOption(p, 8, new ItemStack(EmeralMat, 1), _plugin._trad.get("Shop.Shop"), "Shop", new String[]{_plugin._trad.get("Shop.BuyNewStuff")});
+        _plugin._imm.setOption(p, 49, new ItemStack(BedMat, 1), _plugin._trad.get("Shop.Exit"), "Exit", new String[]{_plugin._trad.get("Shop.ExitDesc")});
     }
 
     public void getHoeManager(Player player, int page) {
+        Material BedMat = GetMaterials.GetBed();
+        
+        if(BedMat == null) {
+            player.sendMessage("It's happend an error on get Materials on getHoeManager. Please Inform the Team or Bl4ckSkull666. Thank you ( https://www.Survival-Piraten.de )");
+            return;
+        }
         APlayer.createConfig(player);
         _plugin._imm.create(player, "Hoe Manager", 54, new IconMenu.OptionClickEventHandler(){
 
@@ -69,10 +87,16 @@ public class ShopManager {
             _plugin._imm.setOption(player, i, item.getItem(), item.getItem().getItemMeta().getDisplayName(), item._name, stockArr);
             ++i;
         }
-        _plugin._imm.setOption(player, 49, new ItemStack(Material.BED, 1), _plugin._trad.get("Shop.navigation.home"), "Home", new String[]{_plugin._trad.get("Shop.navigation.homeDesc")});
+        _plugin._imm.setOption(player, 49, new ItemStack(BedMat, 1), _plugin._trad.get("Shop.navigation.home"), "Home", new String[]{_plugin._trad.get("Shop.navigation.homeDesc")});
     }
 
     public void getHatManager(Player player, int page) {
+        Material BedMat = GetMaterials.GetBed();
+        
+        if(BedMat == null) {
+            player.sendMessage("It's happend an error on get Materials on getHatManager. Please Inform the Team or Bl4ckSkull666. Thank you ( https://www.Survival-Piraten.de )");
+            return;
+        }
         _plugin._imm.create(player, "Hat Manager", 54, new IconMenu.OptionClickEventHandler(){
 
             @Override
@@ -95,10 +119,16 @@ public class ShopManager {
             _plugin._imm.setOption(player, i, item.getItem(), item.getItem().getItemMeta().getDisplayName(), item._name, stockArr);
             ++i;
         }
-        _plugin._imm.setOption(player, 49, new ItemStack(Material.BED, 1), _plugin._trad.get("Shop.navigation.home"), "Home", new String[]{_plugin._trad.get("Shop.navigation.homeDesc")});
+        _plugin._imm.setOption(player, 49, new ItemStack(BedMat, 1), _plugin._trad.get("Shop.navigation.home"), "Home", new String[]{_plugin._trad.get("Shop.navigation.homeDesc")});
     }
 
     public void getArmorManager(Player player, int page) {
+        Material BedMat = GetMaterials.GetBed();
+        
+        if(BedMat == null) {
+            player.sendMessage("It's happend an error on get Materials on getArmorManager. Please Inform the Team or Bl4ckSkull666. Thank you ( https://www.Survival-Piraten.de )");
+            return;
+        }
         _plugin._imm.create(player, "Armor Manager", 54, new IconMenu.OptionClickEventHandler(){
 
             @Override
@@ -121,10 +151,18 @@ public class ShopManager {
             _plugin._imm.setOption(player, i, item.getItem(), item.getItem().getItemMeta().getDisplayName(), item._name, stockArr);
             ++i;
         }
-        _plugin._imm.setOption(player, 49, new ItemStack(Material.BED, 1), _plugin._trad.get("Shop.navigation.home"), "Home", new String[]{_plugin._trad.get("Shop.navigation.homeDesc")});
+        _plugin._imm.setOption(player, 49, new ItemStack(BedMat, 1), _plugin._trad.get("Shop.navigation.home"), "Home", new String[]{_plugin._trad.get("Shop.navigation.homeDesc")});
     }
 
     public void getShopMenu(Player player, int page) {
+        Material SignMat = GetMaterials.GetSign();
+        Material BedMat = GetMaterials.GetBed();
+        
+        if(SignMat == null || BedMat == null) {
+            player.sendMessage("It's happend an error on get Materials on getShopMenu. Please Inform the Team or Bl4ckSkull666. Thank you ( https://www.Survival-Piraten.de )");
+            return;
+        }
+        
         int slot;
         String name = "Shop";
         if (page > 0) {
@@ -182,19 +220,25 @@ public class ShopManager {
             i++;
         }
         if (page > 0) {
-            _plugin._imm.setOption(player, 45, new ItemStack(Material.SIGN, 1), _plugin._trad.get("Shop.navigation.previousPage"), "Page-" + (page - 1), new String[]{_plugin._trad.get("Shop.navigation.previousPageDesc")});
+            _plugin._imm.setOption(player, 45, new ItemStack(SignMat, 1), _plugin._trad.get("Shop.navigation.previousPage"), "Page-" + (page - 1), new String[]{_plugin._trad.get("Shop.navigation.previousPageDesc")});
         }
-        _plugin._imm.setOption(player, 49, new ItemStack(Material.BED, 1), _plugin._trad.get("Shop.navigation.home"), "Home", new String[]{_plugin._trad.get("Shop.navigation.homeDesc")});
+        _plugin._imm.setOption(player, 49, new ItemStack(BedMat, 1), _plugin._trad.get("Shop.navigation.home"), "Home", new String[]{_plugin._trad.get("Shop.navigation.homeDesc")});
         Item so = getItemShop(player);
         _plugin._imm.setOption(player, 50, so.getIcon(), so.getName(), "Nothing", so.getDescription());
         if (i == slot + 44) {
-            _plugin._imm.setOption(player, 53, new ItemStack(Material.SIGN, 1), _plugin._trad.get("Shop.navigation.nextPage"), "Page-" + (page + 1), new String[]{_plugin._trad.get("Shop.navigation.nextPageDesc")});
+            _plugin._imm.setOption(player, 53, new ItemStack(SignMat, 1), _plugin._trad.get("Shop.navigation.nextPage"), "Page-" + (page + 1), new String[]{_plugin._trad.get("Shop.navigation.nextPageDesc")});
         }
     }
 
     public void getShopItem(Player player) {
+        Material EmeralMat = GetMaterials.GetEmerald();
+        if(EmeralMat == null) {
+            player.sendMessage("It's happend an error on get Materials on getShopItem. Please Inform the Team or Bl4ckSkull666. Thank you ( https://www.Survival-Piraten.de )");
+            return;
+        }
+        
         PlayerInventory i = player.getInventory();
-        ItemStack coucou = new ItemStack(Material.EMERALD, 1);
+        ItemStack coucou = new ItemStack(EmeralMat, 1);
         ItemMeta coucou_meta = coucou.getItemMeta();
         coucou_meta.setDisplayName(_plugin._trad.get("Shop.item.name"));
         coucou.setItemMeta(coucou_meta);
@@ -214,9 +258,14 @@ public class ShopManager {
     }
 
     public Item getItemShop(Player player) {
+        Material EmeralMat = GetMaterials.GetEmerald();
+        if(EmeralMat == null) {
+            player.sendMessage("It's happend an error on get Materials on getItemShop. Please Inform the Team or Bl4ckSkull666. Thank you ( https://www.Survival-Piraten.de )");
+            return null;
+        } 
         EcoManager eco = _plugin._eco;
         int coins = eco.getPlayerMoney(player);
-        return new Item("Shop", new ItemStack(Material.EMERALD, 1), "shop", new String[] {_plugin._trad.get("Shop.youHave"), "" + ChatColor.GOLD + coins + " " + _plugin._trad.get("Shop.Coins.name")}, 0, 0);
+        return new Item("Shop", new ItemStack(EmeralMat, 1), "shop", new String[] {_plugin._trad.get("Shop.youHave"), "" + ChatColor.GOLD + coins + " " + _plugin._trad.get("Shop.Coins.name")}, 0, 0);
     }
 
     public void openShop(final Player p) {

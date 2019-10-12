@@ -9,7 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class WolfSerialization {
-    protected WolfSerialization() {
+    /*protected WolfSerialization() {
     }
 
     public static JSONObject serializeWolf(Wolf wolf) {
@@ -73,6 +73,6 @@ public class WolfSerialization {
 
     public static boolean shouldSerialize(String key) {
         return SerializationConfig.getShouldSerialize("wolf." + key);
-    }
+    }*/
 }
 

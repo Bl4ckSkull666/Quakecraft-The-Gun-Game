@@ -7,7 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class SkullSerialization {
-    protected SkullSerialization() {
+    /*protected SkullSerialization() {
     }
 
     public static JSONObject serializeSkull(SkullMeta meta) {
@@ -68,6 +68,6 @@ public class SkullSerialization {
             e.printStackTrace();
             return null;
         }
-    }
+    }*/
 }
 

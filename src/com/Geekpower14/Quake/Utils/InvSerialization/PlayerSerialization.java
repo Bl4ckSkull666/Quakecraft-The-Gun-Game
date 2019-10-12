@@ -5,7 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class PlayerSerialization {
-    protected PlayerSerialization() {
+    /*protected PlayerSerialization() {
     }
 
     public static JSONObject serializePlayer(Player player) {
@@ -77,6 +77,6 @@ public class PlayerSerialization {
 
     public static boolean shouldSerialize(String key) {
         return SerializationConfig.getShouldSerialize("player." + key);
-    }
+    }*/
 }
 

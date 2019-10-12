@@ -13,7 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class InventorySerialization {
-    protected InventorySerialization() {
+    /*protected InventorySerialization() {
     }
 
     public static JSONArray serializeInventory(Inventory inv) {
@@ -211,6 +211,6 @@ public class InventorySerialization {
         catch (JSONException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }
 

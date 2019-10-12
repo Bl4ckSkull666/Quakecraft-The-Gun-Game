@@ -283,7 +283,7 @@ public abstract class Arena {
     }
 
     public ItemStack getLeaveDoor() {
-        ItemStack coucou = new ItemStack(Material.WOOD_DOOR, 1);
+        ItemStack coucou = new ItemStack(Material.DARK_OAK_DOOR);
         ItemMeta coucou_meta = coucou.getItemMeta();
         coucou_meta.setDisplayName(_plugin._trad.get("Game.item.leave"));
         coucou.setItemMeta(coucou_meta);
@@ -303,24 +303,25 @@ public abstract class Arena {
         APlayer ashooter = getAPlayer(shooter);
         APlayer avictim = getAPlayer(victim);
         if (victim != shooter && !avictim.isInvincible()) {
-            Bukkit.getScheduler().scheduleSyncDelayedTask((Plugin)_plugin, new Runnable() {
+            Bukkit.getScheduler().scheduleSyncDelayedTask(_plugin, new Runnable() {
 
                 @Override
                 public void run() {
                     getGainKill(shooter);
                 }
             }, 2);
+            
             try {
                 _fw.playFirework(victim.getWorld(), victim.getLocation(), effect);
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            
             kill(victim);
             broadcast(_plugin._trad.get("Game.Arena.Message.Shot").replace("[SHOOTER]", shooter.getName()).replace("[KILLED]", victim.getName()));
-            ++ashooter._score;
+            ashooter._score++;
             if (ashooter._score == _goal) {
-                Bukkit.getScheduler().scheduleSyncDelayedTask((Plugin)_plugin, new Runnable(){
-
+                Bukkit.getScheduler().scheduleSyncDelayedTask(_plugin, new Runnable() {
                     @Override
                     public void run() {
                         win(shooter);

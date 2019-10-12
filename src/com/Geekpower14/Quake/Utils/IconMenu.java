@@ -1,6 +1,9 @@
 package com.Geekpower14.Quake.Utils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -47,7 +50,11 @@ public class IconMenu implements Listener {
         return this;
     }
 
+    private List<UUID> _openInventories = new ArrayList<>();
     public void open(Player player) {
+        if(_openInventories.contains(player.getUniqueId()))
+            _openInventories.remove(player.getUniqueId());
+        
         Inventory inventory = Bukkit.createInventory((InventoryHolder)player, (int)_size, (String)_name);
         int i = 0;
         while (i < _optionIcons.length) {
@@ -56,10 +63,14 @@ public class IconMenu implements Listener {
             }
             ++i;
         }
+        _openInventories.add(player.getUniqueId());
         player.openInventory(inventory);
     }
 
     public void reopen(Player p) {
+        if(_openInventories.contains(p.getUniqueId()))
+            _openInventories.remove(p.getUniqueId());
+        
         int i = 0;
         while (i < _optionIcons.length) {
             if (_optionIcons[i] != null) {
@@ -67,6 +78,7 @@ public class IconMenu implements Listener {
             }
             ++i;
         }
+        _openInventories.add(p.getUniqueId());
     }
 
     public void setAutoDestroy(boolean autodestroy) {
@@ -87,19 +99,29 @@ public class IconMenu implements Listener {
     }
 
     public void onInventoryClose(InventoryCloseEvent event) {
-        if (!event.getInventory().getName().equals(_name)) {
+        if(!(event.getPlayer() instanceof Player))
             return;
-        }
+        
+        Player p = (Player)event.getPlayer();
+        if(!_openInventories.contains(p.getUniqueId()))
+            return;
+
         if(_autodestroy) {
             destroy();
         }
+        _openInventories.remove(p.getUniqueId());
     }
 
     public void onInventoryClick(InventoryClickEvent event) {
-        if (!event.getInventory().getName().equals(_name)) {
+        if(!(event.getInventory().getHolder() instanceof Player))
+            return;
+        
+        Player p = (Player)event.getWhoClicked();
+        if(p == null || !_openInventories.contains(p.getUniqueId())) {
+            event.setCancelled(true);
             return;
         }
-        event.setCancelled(true);
+        
         int slot = event.getRawSlot();
         if (slot >= 0 && slot < _size && _optionNames[slot] != null) {
             if (_optionRegs[slot].equals("") || _optionRegs[slot].trim().equals("-cancel-")) {
@@ -110,7 +132,6 @@ public class IconMenu implements Listener {
             OptionClickEvent e = new OptionClickEvent((Player)event.getWhoClicked(), slot, _optionRegs[slot], this, event.isRightClick(), event.isLeftClick(), event.isShiftClick());
             _handler.onOptionClick(e);
             if (e.willClose()) {
-                final Player p = (Player)event.getWhoClicked();
                 Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 
                     @Override

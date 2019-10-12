@@ -9,7 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class LivingEntitySerialization {
-    protected LivingEntitySerialization() {
+    /*protected LivingEntitySerialization() {
     }
 
     public static JSONObject serializeEntity(LivingEntity entity) {
@@ -99,6 +99,6 @@ public class LivingEntitySerialization {
 
     public static boolean shouldSerialize(String key) {
         return SerializationConfig.getShouldSerialize("living-entity." + key);
-    }
+    }*/
 }
 

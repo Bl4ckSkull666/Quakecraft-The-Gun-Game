@@ -4,7 +4,10 @@ import com.Geekpower14.Quake.Arena.Arena;
 import com.Geekpower14.Quake.Arena.SArena;
 import com.Geekpower14.Quake.Arena.TArena;
 import com.Geekpower14.Quake.Quake;
-import com.sk89q.worldedit.bukkit.selections.Selection;
+import com.sk89q.worldedit.LocalSession;
+import com.sk89q.worldedit.WorldEdit;
+import com.sk89q.worldedit.bukkit.BukkitAdapter;
+import com.sk89q.worldedit.regions.Region;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -113,29 +116,20 @@ public class LobbyManager {
 
     public Boolean addLobby(Player player) {
         String lobby = "lobby" + _locmin.size();
-        Selection selection = _plugin._worldEdit.getSelection(player);
-        if (selection != null) {
-            //World world = selection.getWorld();
-            Location un = selection.getMinimumPoint();
-            Location deux = selection.getMaximumPoint();
-            /*String direction = "";
-            if (un.getX() == deux.getX()) {
-                direction = "Z";
-            } else if (un.getZ() == deux.getZ()) {
-                direction = "X";
-            } else {
-                _plugin.log.warning("Pas m\u00eame X ou Z pour : " + lobby);
-                return false;
-            }*/
-            Location tempmin = un;
-            Location tempmax = deux;
-            _locmin.put(lobby, tempmin);
-            _locmax.put(lobby, tempmax);
-            player.sendMessage(ChatColor.YELLOW + "Lobby " + _locmin.size() + " cr\u00e9e avec succ\u00e9s");
-            initsign();
-            return true;
+        try {
+            LocalSession ls = WorldEdit.getInstance().getSessionManager().get(BukkitAdapter.adapt(player));
+            Region reg = ls.getSelection(BukkitAdapter.adapt(player.getWorld()));
+            
+            if(reg != null) {
+                _locmin.put(lobby, BukkitAdapter.adapt(player.getWorld(), reg.getMinimumPoint()));
+                _locmax.put(lobby, BukkitAdapter.adapt(player.getWorld(), reg.getMaximumPoint()));
+                player.sendMessage(ChatColor.YELLOW + "Lobby " + _locmin.size() + " cr\u00e9e successful \u00e9s");
+                initsign();
+                return true;
+            }
+        } catch(Exception ex) {
+            player.sendMessage(ChatColor.RED + "Internal error on region selection.");
         }
-        player.sendMessage(ChatColor.RED + "Veuillez faire une s\u00e9lection d'abord !");
         return false;
     }
 

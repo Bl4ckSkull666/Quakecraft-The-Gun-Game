@@ -10,8 +10,6 @@ import com.Geekpower14.Quake.Shop.IconMenuManager;
 import com.Geekpower14.Quake.Shop.ShopManager;
 import com.Geekpower14.Quake.Stuff.StuffManager;
 import com.Geekpower14.Quake.Trans.Translate;
-import com.Geekpower14.Quake.Utils.ParticleEffects;
-import com.Geekpower14.Quake.Utils.Reflection;
 import com.Geekpower14.Quake.Utils.ScoreB;
 import com.Geekpower14.Quake.Utils.Version;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
@@ -26,14 +24,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.Material;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
-import org.bukkit.event.Listener;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -42,7 +38,7 @@ import org.bukkit.scoreboard.Scoreboard;
 public class Quake
 extends JavaPlugin {
     public static boolean _debug = false;
-    public static String _version = "3.0.0";
+    public static String _version = "3.4.0";
     public static Version _ver = new Version(_version);
     public ArenaManager _am = null;
     public LobbyManager _lobby = null;
@@ -71,11 +67,14 @@ extends JavaPlugin {
 
         _imm = new IconMenuManager((Plugin)this);
         _board = Bukkit.getScoreboardManager().getNewScoreboard();
-        _config = YamlConfiguration.loadConfiguration((File)new File(getDataFolder(), "config.yml"));
+        File confFile = new File(getDataFolder(), "config.yml");
+        _config = YamlConfiguration.loadConfiguration(confFile);
         _shopWorlds.add("world");
         _ScoreWorlds.add("world");
-        loadConfig();
-        saveConfig();
+        if(confFile.exists())
+            loadConfig();
+        else
+            saveConfig();
         getDataFolder().mkdir();
         new File(getDataFolder().getPath() + "/arenas").mkdir();
         _worldEdit = (WorldEditPlugin)Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");
@@ -130,8 +129,10 @@ extends JavaPlugin {
         _config.set("debug", _debug);
         _config.set("useVault", _useVault);
         _config.set("shop.id", _shopId.name());
-        _config.set("shop.world", _shopWorlds);
-        _config.set("ScoreBoard.world", _ScoreWorlds);
+        if(!_shopWorlds.isEmpty())
+            _config.set("shop.world", _shopWorlds);
+        if(!_ScoreWorlds.isEmpty())
+            _config.set("ScoreBoard.world", _ScoreWorlds);
         try {
             _config.save(new File(getDataFolder(), "config.yml"));
         } catch (IOException e) {
@@ -147,18 +148,6 @@ extends JavaPlugin {
         if(p.hasPermission("Quake.admin"))
             return true;
         return p.hasPermission(perm);
-    }
-
-    public static void sendTabName(Player p, String s, Boolean visible, int ping) {
-        try {
-            Object packet = (Object)Reflection.getNMSClass("PacketPlayOutPlayerInfo").newInstance();
-            ParticleEffects.ReflectionUtilities.setValue(packet, "a", s);
-            ParticleEffects.ReflectionUtilities.setValue(packet, "b", visible);
-            ParticleEffects.ReflectionUtilities.setValue(packet, "c", ping);
-            ParticleEffects.sendPacket(packet, p);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public void win(final Player player) {
