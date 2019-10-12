@@ -1,6 +1,7 @@
 package com.Geekpower14.Quake.Arena;
 
 import com.Geekpower14.Quake.Quake;
+import com.Geekpower14.Quake.Utils.FireworkEffectPlayer;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -320,35 +321,7 @@ public class SArena extends Arena {
                 if(_compteur >= nb)
                     return;
                 
-                Firework fw = (Firework)player.getWorld().spawnEntity(player.getLocation(), EntityType.FIREWORK);
-                FireworkMeta fwm = fw.getFireworkMeta();
-                Random r = new Random();
-                int rt = r.nextInt(4) + 1;
-                FireworkEffect.Type type = FireworkEffect.Type.BALL;
-                if (rt == 1) {
-                    type = FireworkEffect.Type.BALL;
-                }
-                if (rt == 2) {
-                    type = FireworkEffect.Type.BALL_LARGE;
-                }
-                if (rt == 3) {
-                    type = FireworkEffect.Type.BURST;
-                }
-                if (rt == 4) {
-                    type = FireworkEffect.Type.CREEPER;
-                }
-                if (rt == 5) {
-                    type = FireworkEffect.Type.STAR;
-                }
-                int r1i = r.nextInt(17) + 1;
-                int r2i = r.nextInt(17) + 1;
-                Color c1 = getColor(r1i);
-                Color c2 = getColor(r2i);
-                FireworkEffect effect = FireworkEffect.builder().flicker(r.nextBoolean()).withColor(c1).withFade(c2).with(type).trail(r.nextBoolean()).build();
-                fwm.addEffect(effect);
-                int rp = r.nextInt(2) + 1;
-                fwm.setPower(rp);
-                fw.setFireworkMeta(fwm);
+                FireworkEffectPlayer.playFirework(player);
                 _compteur++;
             }
         }, 5, 5);

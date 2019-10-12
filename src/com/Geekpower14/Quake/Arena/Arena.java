@@ -311,11 +311,12 @@ public abstract class Arena {
                 }
             }, 2);
             
-            try {
+            FireworkEffectPlayer.playFirework(victim.getLocation());
+            /*try {
                 _fw.playFirework(victim.getWorld(), victim.getLocation(), effect);
             } catch (Exception e) {
                 e.printStackTrace();
-            }
+            }*/
             
             kill(victim);
             broadcast(_plugin._trad.get("Game.Arena.Message.Shot").replace("[SHOOTER]", shooter.getName()).replace("[KILLED]", victim.getName()));

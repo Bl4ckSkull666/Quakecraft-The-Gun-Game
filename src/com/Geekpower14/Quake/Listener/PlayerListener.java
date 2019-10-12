@@ -379,6 +379,5 @@ public class PlayerListener implements Listener {
             arena.leaveArena(event.getPlayer());
         }
     }
-
 }
 

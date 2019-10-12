@@ -3,10 +3,17 @@ package com.Geekpower14.Quake.Utils;
 import com.Geekpower14.Quake.Quake;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Random;
+import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
+import org.bukkit.FireworkEffect.Builder;
 import org.bukkit.Location;
+import org.bukkit.Particle;
+import org.bukkit.Particle.DustOptions;
 import org.bukkit.World;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.meta.FireworkMeta;
 
 public class FireworkEffectPlayer {
@@ -65,6 +72,45 @@ public class FireworkEffectPlayer {
             e.printStackTrace();
         }
         fw.remove();
+    }
+    
+    public static void playFirework(Location loc) {
+        loc.getWorld().spawnParticle(Particle.EXPLOSION_HUGE, loc, 1);
+    }
+    
+    public static void playFirework(Player p) {
+        Location loc = p.getLocation();
+        Random r = new Random();
+        Builder fweBuilder = FireworkEffect.builder();
+        switch(r.nextInt(5)) {
+            case 0:
+                fweBuilder = fweBuilder.with(FireworkEffect.Type.BALL);
+                break;
+            case 1:
+                fweBuilder = fweBuilder.with(FireworkEffect.Type.BALL_LARGE);
+                break;
+            case 2:
+                fweBuilder = fweBuilder.with(FireworkEffect.Type.BURST);
+                break;
+            case 3:
+                fweBuilder = fweBuilder.with(FireworkEffect.Type.CREEPER);
+                break;
+            case 4:
+                fweBuilder = fweBuilder.with(FireworkEffect.Type.STAR);
+                break;
+            default:
+                fweBuilder = fweBuilder.with(FireworkEffect.Type.STAR);
+        }
+        fweBuilder = fweBuilder.flicker(r.nextBoolean());
+        fweBuilder = fweBuilder.withColor(Config.getColor(r.nextInt(17) + 1));
+        fweBuilder = fweBuilder.withFade(Config.getColor(r.nextInt(17) + 1));
+        fweBuilder = fweBuilder.trail(true);
+        
+        Firework fw = (Firework)loc.getWorld().spawnEntity(loc, EntityType.FIREWORK);
+        FireworkMeta fwm = fw.getFireworkMeta();
+        fwm.addEffect(fweBuilder.build());
+        fwm.setPower(r.nextInt(5) + 2);
+        fw.setFireworkMeta(fwm);
     }
 
     private static Method getMethod(Class<?> cl, String method) {
