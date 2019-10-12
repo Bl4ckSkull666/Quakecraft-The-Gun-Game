@@ -75,7 +75,9 @@ public class FireworkEffectPlayer {
     }
     
     public static void playFirework(Location loc) {
+        Random r = new Random();        
         loc.getWorld().spawnParticle(Particle.EXPLOSION_HUGE, loc, 1);
+        loc.getWorld().spawnParticle(Particle.FLAME, loc, r.nextInt(51) + r.nextInt(51), 0.02d, 0.02d, 0.02d, 0.08d);
     }
     
     public static void playFirework(Player p) {
