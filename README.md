@@ -68,4 +68,4 @@ For Questions and Help please join [Discord](https://www.survival-piraten.de/dis
 *( PayPal/PaySafeCard & more )*
 
 ## IceCream Spend List:
-* be the first?
+* ofunny , Thanks for the big Ice Cream cup. :-) [01. June 2020]
