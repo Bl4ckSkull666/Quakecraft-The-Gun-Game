@@ -57,11 +57,13 @@ For Questions and Help please join [Discord](https://www.survival-piraten.de/dis
 * Do /quake addspawn [Arena name] - in the Arena, to add a randoms spawn of the Arena. (Do this many time of you want !)
 * Do /quake save [Arena name] - to save the config of the Arena. Enjoy !
 
-**Create the lobby ( You need WorldEdit to define the lobby wall. )**
+**OUT OF DATE --- Create the lobby ( You need WorldEdit to define the lobby wall. )**
 * Define a lobby wall with WorldEdit. A Wall of Signs.
 * Do /quake addlobby - to define the WorldEdit region as a Lobby wall.
 *  Do /quake setlobbyspawn - to define the spawn at the end of the game.
 
+**New Lobby System since 3.4.3**
+[Read this Page](https://github.com/Bl4ckSkull666/Quake---The-Gun-Game/wiki/Lobby-system)
 ####################################################
 
 [*If you like the work, you can spend my kids a Icecream*](https://www.tipeeestream.com/bl4ckskull666/donation)
