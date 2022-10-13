@@ -1,5 +1,3 @@
-### This Scource Code is free available all time for everybody. The only condition to use is to add your own name to the version number in the plugin.yml of the plugin.
-
 ![Quake Plugin](https://media.forgecdn.net/avatars/67/696/636163107094889338.png)
 
 # Quake_v1.14.4
